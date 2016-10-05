@@ -89,6 +89,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import com.sudamod.sdk.smscodehelper.SmscoderHelper;
+import com.android.messaging.receiver.CopyCaptchasReceiver;
+
 /**
  * Handle posting, updating and removing all conversation notifications.
  *

@@ -46,9 +46,9 @@ LOCAL_STATIC_JAVA_LIBRARIES += libphotoviewer
 LOCAL_STATIC_JAVA_LIBRARIES += libphonenumber
 LOCAL_STATIC_JAVA_LIBRARIES += colorpicker
 LOCAL_STATIC_JAVA_LIBRARIES += libSudaSdk
-LOCAL_STATIC_JAVA_LIBRARIES += libSudaPinYin
 LOCAL_STATIC_JAVA_LIBRARIES += libOkHttp
 LOCAL_STATIC_JAVA_LIBRARIES += libOKIO
+
 
 include $(LOCAL_PATH)/version.mk
 
@@ -88,3 +88,4 @@ LOCAL_SDK_VERSION := current
 include $(BUILD_PACKAGE)
 
 include $(call all-makefiles-under, $(LOCAL_PATH))
+
