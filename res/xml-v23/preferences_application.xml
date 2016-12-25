@@ -38,6 +38,18 @@
     </PreferenceScreen>
 
     <SwitchPreference
+        android:key="@string/captchas_auto_archive_pref_key"
+        android:summary="@string/captchas_auto_archive_summary"
+        android:title="@string/captchas_auto_archive_title"
+        android:persistent="true"/>
+
+    <SwitchPreference
+        android:key="@string/public_service_auto_archive_pref_key"
+        android:title="@string/public_service_auto_archive_title"
+        android:summary="@string/public_service_auto_archive_summary"
+        android:persistent="true"/>
+
+    <SwitchPreference
         android:key="@string/send_sound_pref_key"
         android:title="@string/send_sound_pref_title"
         android:defaultValue="@bool/send_sound_pref_default"

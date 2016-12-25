@@ -44,6 +44,7 @@
 
     </PreferenceCategory>
 
+
     <PreferenceCategory
         android:key="@string/advanced_category_pref_key"
         android:title="@string/advanced_category_pref_title">

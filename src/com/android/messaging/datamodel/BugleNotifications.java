@@ -53,6 +53,7 @@ import com.android.messaging.datamodel.MessageNotificationState.MultiMessageNoti
 import com.android.messaging.datamodel.action.MarkAsReadAction;
 import com.android.messaging.datamodel.action.MarkAsSeenAction;
 import com.android.messaging.datamodel.action.RedownloadMmsAction;
+import com.android.messaging.datamodel.action.UpdateConversationArchiveStatusAction;
 import com.android.messaging.datamodel.data.ConversationListItemData;
 import com.android.messaging.datamodel.data.MessageData;
 import com.android.messaging.datamodel.media.AvatarRequestDescriptor;
@@ -89,6 +90,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import com.sudamod.sdk.phonelocation.PhoneUtil;
 import com.sudamod.sdk.smscodehelper.SmscoderHelper;
 import com.android.messaging.receiver.CopyCaptchasReceiver;
 
@@ -204,6 +206,17 @@ public class BugleNotifications {
                         return;
                     }
                 }
+
+                if (message != null && MmsUtils.allowAutoArchivePublicServiceSms()) {
+                    Context context = Factory.get().getApplicationContext();
+                    String number = message.getParticipantId();
+                    number = ((number == null) ? " " : number);
+                    String code = PhoneUtil.getPhoneUtil(context).getPhoneCode(number);
+                    if ((TextUtils.isEmpty(code) || "001".equals(code))) {
+                        UpdateConversationArchiveStatusAction.archiveConversation(conversationId);
+                    }
+                }
+
                 createMessageNotification(silent, conversationId);
             }
         }
@@ -213,6 +226,10 @@ public class BugleNotifications {
     }
 	
     private static void updateCaptchasNotication(String conversationId, String captchas, String captchaProvider, long timeMillis) {
+
+        if (MmsUtils.allowAutoArchiveCaptchaSms()) {
+            UpdateConversationArchiveStatusAction.archiveConversation(conversationId);
+        }
 
         Context context = Factory.get().getApplicationContext();
         cancelNotification(context, CAPTCHAS_NOTIFICATION_ID);

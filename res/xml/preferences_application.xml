@@ -37,6 +37,11 @@
     </PreferenceScreen>
 
     <CheckBoxPreference
+        android:key="@string/captchas_auto_archive_pref_key"
+        android:summary="@string/captchas_auto_archive_summary"
+        android:title="@string/captchas_auto_archive_title" />
+
+    <CheckBoxPreference
         android:key="@string/send_sound_pref_key"
         android:title="@string/send_sound_pref_title"
         android:defaultValue="@bool/send_sound_pref_default"

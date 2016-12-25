@@ -1173,6 +1173,24 @@ public class MmsUtils {
         return false;
     }
 
+    public static boolean allowAutoArchiveCaptchaSms() {
+        final BuglePrefs prefs = BuglePrefs.getApplicationPrefs();
+        final Context context = Factory.get().getApplicationContext();
+        final String prefKey = context.getString(R.string.captchas_auto_archive_pref_key);
+        final boolean defaultValue = context.getResources().getBoolean(
+                R.bool.captchas_auto_archive_pref_default);
+        return prefs.getBoolean(prefKey, defaultValue);
+    }
+
+    public static boolean allowAutoArchivePublicServiceSms() {
+        final BuglePrefs prefs = BuglePrefs.getApplicationPrefs();
+        final Context context = Factory.get().getApplicationContext();
+        final String prefKey = context.getString(R.string.public_service_auto_archive_pref_key);
+        final boolean defaultValue = context.getResources().getBoolean(
+                R.bool.public_service_auto_archive_pref_default);
+        return prefs.getBoolean(prefKey, defaultValue);
+    }
+
     /**
      * Parse the message row id from a message Uri.
      *
