@@ -197,12 +197,12 @@ public class BugleNotifications {
             if ((coverage & UPDATE_MESSAGES) != 0) {
                 if(message != null){
                     String captchas = SmscoderHelper.getSmsCode("", message.getMessageText());
-		    String captchaProvider = SmscoderHelper.getSender("", message.getMessageText());
+                    String captchaProvider = SmscoderHelper.getSender("", message.getMessageText());
                     long timeMillis = message.getReceivedTimeStamp();
-		    if(captchas != null && !"".equals(captchas)) {
-		        updateCaptchasNotication(conversationId, captchas, captchaProvider, timeMillis);
+                    if (captchas != null && !"".equals(captchas)) {
+                        updateCaptchasNotication(conversationId, captchas, captchaProvider, timeMillis);
                         return;
-		    }
+                    }
                 }
                 createMessageNotification(silent, conversationId);
             }
@@ -223,12 +223,21 @@ public class BugleNotifications {
         String title = TextUtils.isEmpty(captchaProvider) ? String.format(context.getString(R.string.captchas_title), captchas)
                 : String.format(context.getString(R.string.captchas_with_provider_title), captchas, captchaProvider);
 
+        String content = context.getString(R.string.captchas_content);
+
         NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle()
-                .setBigContentTitle(context.getString(R.string.captchas_title)).bigText(context.getString(R.string.captchas_content));
+                .setBigContentTitle(title)
+                .bigText(content);
+
+        final Uri ringtoneUri = getNotificationRingtoneUriForConversationId(conversationId);
 
         NotificationCompat.Builder noti = new NotificationCompat.Builder(context).setWhen(timeMillis);
-        noti.setTicker(title).setContentTitle(title).setColor(context.getResources()
-                .getColor(R.color.notification_accent_color)).setPriority(Notification.PRIORITY_HIGH).setStyle(style).setContentText(context.getString(R.string.captchas_content));
+        noti.setTicker(title).setContentTitle(title)
+                .setColor(context.getResources().getColor(R.color.notification_accent_color))
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setStyle(style)
+                .setSound(ringtoneUri)
+                .setContentText(content);
 
         Intent captchasIntent = new Intent();
         captchasIntent.setClass(context, CopyCaptchasReceiver.class);
@@ -242,7 +251,7 @@ public class BugleNotifications {
         noti.setSmallIcon(R.drawable.ic_sms_multi_light);
         int defaults = 0;
 
-        final Uri ringtoneUri = getNotificationRingtoneUriForConversationId(conversationId);
+
         final BuglePrefs prefs = Factory.get().getApplicationPrefs();
         final String prefKey = context.getString(R.string.notification_vibration_pref_key);
 
