@@ -212,7 +212,7 @@ public class BugleNotifications {
                     String number = message.getParticipantId();
                     number = ((number == null) ? " " : number);
                     String code = PhoneUtil.getPhoneUtil(context).getPhoneCode(number);
-                    if ((TextUtils.isEmpty(code) || "001".equals(code))) {
+                    if ("001".equals(code)) {
                         UpdateConversationArchiveStatusAction.archiveConversation(conversationId);
                     }
                 }
